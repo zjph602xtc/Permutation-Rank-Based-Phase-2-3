@@ -168,7 +168,7 @@ for (rho in rho_list){
   sig <- rbind(cbind(sig_e, sig_be), cbind(t(sig_be),sig_b)) # Ye first, then Yb
   
   
-  iter <- 10000
+  iter <- 50000
   z_s1_e_all <- matrix(nrow=iter, ncol=4)
   z_s1_b_all <-  matrix(nrow=iter, ncol=4)
   z_s1_unadjsted <- matrix(nrow=iter, ncol=4) # rank 1, 2, 3, 4
@@ -201,8 +201,8 @@ for (rho in rho_list){
       p_s1_dunnett[i, k] <- p_dunnett
       
       ## permutation -------------------------------------------------------------
-      z_rand <- rep(NA, 2000)
-      for (rrr in 1:2000){
+      z_rand <- rep(NA, 20000)
+      for (rrr in 1:20000){
         dat_rand <- t(sapply(1:n1, function(x){tp <- sample.int(5,5); dat_s1[x,c(tp,tp+5)]}))
         
         tmp_e <- sapply(1:4, function(i){dd <- prop.test(c(sum(dat_rand[,i]),sum(dat_rand[, 5])), c(n1,n1)); sqrt(dd$statistic) * ifelse(diff(dd$estimate)<0, -1, 1)})
